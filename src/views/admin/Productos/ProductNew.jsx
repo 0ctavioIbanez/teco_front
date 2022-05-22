@@ -2,11 +2,12 @@ import Header from "../../../components/admin/Header"
 import FormBuilder from "../../../components/admin/FormBuilder"
 import Select from 'react-select';
 import { useState } from "react";
+import DinamicList from "../../../components/admin/dragable/DinamicList";
 
 const ProductNew = () => {
-    const [departamentos, setDepartamentos] = useState([{ value: 'chocolate', label: 'Chocolate' },
-                                                        { value: 'strawberry', label: 'Strawberry' },
-                                                        { value: 'vanilla', label: 'Vanilla' },])
+    const [departamentos, setDepartamentos] = useState([{ id: "1", value: 'chocolate', label: 'Chocolate' },
+                                                        { id: "2", value: 'strawberry', label: 'Strawberry' },
+                                                        { id: "3", value: 'vanilla', label: 'Vanilla' },])
 
     const formJSON = [{
         element: "input",
@@ -21,7 +22,7 @@ const ProductNew = () => {
         element: <div className="form-group">
             <label htmlFor="">Código</label>
             <div className="input-group">
-                <input type="text" className="form-control" placeholder aria-label aria-describedby="basic-addon1" />
+                <input type="text" className="form-control" placeholder="0000" aria-label aria-describedby="basic-addon1" />
                 <div className="input-group-prepend">
                     <button className="btn btn-default btn-border" type="button">Generar</button>
                 </div>
@@ -67,16 +68,25 @@ const ProductNew = () => {
                     <h4 className="font-weight-bold">Detalles generales</h4>
                     </div>
                     <form className="card-body d-flex flex-wrap">
-                        {formJSON.map(item => <FormBuilder item={item} />)}
+                        {formJSON.map((item, i) => <FormBuilder key={`formb-${i}`} item={item} />)}
                     </form>
                 </div>
 
                 <div className="card">
                     <div className="card-header">
-                    <h4 className="font-weight-bold">Detalles generales</h4>
+                    <h4 className="font-weight-bold">Selecciona los departamentos a los que pertenece</h4>
                     </div>
-                    <form className="card-body d-flex flex-wrap">
-                        {formJSON.map(item => <FormBuilder item={item} />)}
+                    <form className="card-body">
+                        <DinamicList items={ departamentos } />
+                    </form>
+                </div>
+
+                <div className="card">
+                    <div className="card-header">
+                    <h4 className="font-weight-bold">Selecciona las categorías a los que pertenece</h4>
+                    </div>
+                    <form className="card-body">
+                        <DinamicList items={ departamentos } />
                     </form>
                 </div>
             </div>

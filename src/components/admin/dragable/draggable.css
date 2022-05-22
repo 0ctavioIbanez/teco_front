@@ -1,0 +1,18 @@
+.shadow--success {
+    transition: all .3s ease;
+    box-shadow: 0 .5rem 1rem rgba(0, 243, 0, 0.3)!important;
+}
+.shadow--danger {
+    transition: all .3s ease;
+    box-shadow: 0 .5rem 1rem rgba(255, 9, 9, 0.3)!important;
+}
+
+.basket {
+    border-top: 1px solid rgb(180, 180, 180);
+}
+@media only screen and (min-width: 700px) {
+    .basket {
+        border-left: 1px solid rgb(180, 180, 180);
+        border-top: none;
+    }   
+}

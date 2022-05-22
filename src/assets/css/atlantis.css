@@ -8959,4 +8959,23 @@ body {
   background: -webkit-linear-gradient(legacy-direction(-45deg), #E80A15, #F25961) !important;
   background: linear-gradient(-45deg, #E80A15, #F25961) !important; }
 
-/*# sourceMappingURL=atlantis.css.map */
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #d0d0d1;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #a6a6a7;
+}

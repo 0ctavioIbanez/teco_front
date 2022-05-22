@@ -28,6 +28,8 @@ function App() {
           </Route>
         </Route>
 
+        <Route path='/' element={<ProductNew />} />
+
       </Routes>
     </BrowserRouter>
   );
