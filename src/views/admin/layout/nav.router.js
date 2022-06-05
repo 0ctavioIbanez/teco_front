@@ -30,7 +30,7 @@ export const routes = [
                 title: "Departamentos",
                 icon: "",
                 navs: [{
-                    to: "producto-listado",
+                    to: "departamento/todos",
                     label: "Listado"
                 },
                 ]
@@ -39,7 +39,7 @@ export const routes = [
                 title: "Categorías",
                 icon: "",
                 navs: [{
-                    to: "producto-listado",
+                    to: "/admin/categorias/todas",
                     label: "Listado"
                 },
                 ]

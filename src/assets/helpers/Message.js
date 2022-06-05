@@ -14,19 +14,42 @@ class Message {
         })
     }
 
-    success(title, text = null) {
-        this.swal.fire({
+    async success(title, text = null) {
+        return this.swal.fire({
             icon: 'success',
             title,
             text,
         })
     }
 
-    error(title, text = null) {
-        this.swal.fire({
+    async error(title, text = null) {
+        return this.swal.fire({
             icon: 'error',
             title,
             text,
+        })
+    }
+
+    async question(title, text) {
+        return this.swal.fire({
+            icon: 'question',
+            title,
+            text,
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Continuar',
+            showCancelButton: true,
+
+        })
+    }
+
+    async input(title) {
+        return this.swal.fire({
+            input: "password",
+            title,
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Continuar',
+            showCancelButton: true,
+
         })
     }
 }

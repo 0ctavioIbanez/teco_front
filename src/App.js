@@ -11,6 +11,14 @@ import Login from './views/admin/Login';
 import ProductList from './views/admin/Productos/ProductList';
 import ProductNew from './views/admin/Productos/ProductNew';
 
+// Departamentos
+import DepartamentosListado from './views/admin/departamentos/DepartamentosListado';
+import DepartamentoNuevo from './views/admin/departamentos/DepartamentoNuevo';
+
+// Categorías
+import CategoriasListado from './views/admin/categorias/CategoriasListado';
+import CategoriasNuevo from './views/admin/categorias/CategoriasNuevo';
+
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +33,18 @@ function App() {
             <Route path='dashboard' element={<Dashboard />} />
             <Route path='producto-listado' element={<ProductList />} />
             <Route path='producto-nuevo' element={<ProductNew />} />
+
+            <Route path='departamento'>
+              <Route path='todos' element={ <DepartamentosListado /> } />
+              <Route path='nuevo' element={ <DepartamentoNuevo /> } />
+              <Route path='ver/:id' element={ <DepartamentoNuevo /> } />
+            </Route>
+
+            <Route path='categorias'>
+              <Route path='todas' element={ <CategoriasListado /> } />
+              <Route path='nueva' element={ <CategoriasNuevo /> } />
+              <Route path='ver/:id' element={ <CategoriasListado /> } />
+            </Route>
           </Route>
         </Route>
 
