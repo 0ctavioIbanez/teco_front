@@ -43,7 +43,7 @@ function App() {
             <Route path='categorias'>
               <Route path='todas' element={ <CategoriasListado /> } />
               <Route path='nueva' element={ <CategoriasNuevo /> } />
-              <Route path='ver/:id' element={ <CategoriasListado /> } />
+              <Route path='ver/:id' element={ <CategoriasNuevo /> } />
             </Route>
           </Route>
         </Route>

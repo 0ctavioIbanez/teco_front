@@ -29,11 +29,26 @@ const form = {
             }
         });
 
+        const multi = {
+            name: '',
+            checks: []
+        };
         checks.forEach(check => {
             if (check.name) {
-                payload[check.name] = check.checked;
+                if (check.hasAttribute("multi")) {
+                    if (check.checked) {
+                        multi.checks.push(check.value);
+                    }
+                    multi.name = check.name;
+                } else {
+                    payload[check.name] = check.checked;
+                }
             }
-        })
+        });
+
+        if (multi.checks.length) {
+            payload[multi.name] = multi.checks;
+        }
 
         return payload;
     },
