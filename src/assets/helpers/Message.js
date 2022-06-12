@@ -30,7 +30,7 @@ class Message {
         })
     }
 
-    async question(title, text) {
+    async question(title = '', text = '') {
         return this.swal.fire({
             icon: 'question',
             title,

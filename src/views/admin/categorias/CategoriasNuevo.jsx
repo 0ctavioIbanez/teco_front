@@ -83,10 +83,13 @@ const CategoriasNuevo = () => {
 
     const update = async e => {
         e.preventDefault();
-        const req = await request.post('categoria/update', {
-            ...form.build(e.target),
-            id
-        });
+        message.loading();
+        try {
+            const req = await request.post('categoria/update', {...form.build(e.target), id});
+            message.success(req.data.message);
+        } catch (error) {
+            message.error("Lo sentimos, ocurrió un error");
+        }
     }
 
     const handleCheck = (e, id) => {
@@ -118,7 +121,19 @@ const CategoriasNuevo = () => {
         } catch (error) {
             message.error("Lo sentimos, ocurrió un error");
         }
-    }
+    };
+
+    const removeImage = async ({idImagenCover, idImagenMain}, type) => {
+        const question = await message.question("¿Eliminar imágen?");
+        if (question.isConfirmed) {
+            const res = await request.post("categoria/removeImage", {
+                idImage: type == 'cover' ? idImagenCover : idImagenMain,
+                id, type
+            });
+            console.log(res);
+        }
+        
+    };
 
 
     return (
@@ -136,7 +151,7 @@ const CategoriasNuevo = () => {
                             <div className='card'>
                                 <img src={categoria.mainImage} className='card-img-top' alt="" />
                                 <div className="col-12 card-footer">
-                                    <button type='button' className='btn btn-danger btn-sm'>Eliminar</button>
+                                    <button type='button' className='btn btn-danger btn-sm' onClick={e => removeImage(categoria, 'main')}>Eliminar</button>
                                 </div>
                             </div>
                             : <Pond name="mainImage" />
@@ -147,6 +162,11 @@ const CategoriasNuevo = () => {
                         {categoria.coverImage ?
                             <div className="card">
                                 <img src={categoria.coverImage} alt="" className="card-img-top" />
+                                <div className="card-footer">
+                                    <button type='button' className='btn btn-danger btn-sm' onClick={e => removeImage(categoria, 'cover')}>
+                                        Eliminar
+                                    </button>
+                                </div>
                             </div>
                             : <Pond name="coverImage" />
                         }
