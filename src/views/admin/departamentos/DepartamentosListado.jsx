@@ -17,21 +17,16 @@ const DepartamentosListado = () => {
         }
     }
 
-
-
     useEffect(() => {
         getDepartamentos();
     }, [])
-
 
     return (
         <>
             <Header title="Todos mis departamentos" btnTo="/admin/departamento/nuevo" btnLabel="Crear nuevo" />
             <Main>
                 {!departamentos.length ?
-                    <>
-                        <h4 className="text-center">Aún no tienes departamentos <Link to="/admin/departamento/nuevo" className="text-primary"><u>Crear</u></Link> </h4>
-                    </>
+                    <h4 className="text-center">Aún no tienes departamentos <Link to="/admin/departamento/nuevo" className="text-primary"><u>Crear</u></Link> </h4>
                     : null}
 
                 <div className="d-flex flex-wrap justify-content-around">

@@ -42,7 +42,7 @@ const DepartamentoNuevo = () => {
             const pass = await message.input("Ingresa tu contraseña");
             if (pass.isConfirmed) {
                 try {
-                    const req = await request.post('departamento/remove', {id, pass: pass.value})
+                    const req = await request.post('departamento/remove', { id, pass: pass.value })
                     console.log(req);
                     await message.success(req.data.message);
                     return navigate('/admin/departamento/todos')
@@ -60,8 +60,6 @@ const DepartamentoNuevo = () => {
     useEffect(() => {
         handleErase()
     }, [erase])
-    
-
 
     const create = async e => {
         e.preventDefault();
@@ -102,7 +100,7 @@ const DepartamentoNuevo = () => {
             try {
                 const res = await request.post('departamento/removeImage', { id, idImage });
             } catch (error) {
-            return message("Lo sentimos, ocurrió un error");
+                return message("Lo sentimos, ocurrió un error");
             }
         }
     };
@@ -110,8 +108,8 @@ const DepartamentoNuevo = () => {
 
     return (
         <>
-            <Header title={`${id ? 'Editar' : 'Crear nuevo'} departamento`} customHandler={ setErase } btnLabel="Eliminar" btnClass="btn-sm btn-danger" />
-            
+            <Header title={`${id ? 'Editar' : 'Crear nuevo'} departamento`} customHandler={setErase} btnLabel="Eliminar" btnClass="btn-sm btn-danger" />
+
             <Main>
                 <form onSubmit={e => id ? update(e) : create(e)} className="d-flex flex-wrap">
                     <div className="col-lg-12 p-2">

@@ -10,6 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 const CategoriasNuevo = () => {
     const [departamentos, setDepartamentos] = useState([]);
     const [categoria, setCategoria] = useState({ categoria: '', departamentos: [] });
+    const [remove, setRemove] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -99,10 +100,30 @@ const CategoriasNuevo = () => {
         setDepartamentos(newDeptos);
     }
 
+    const erase = async e => {
+        const question = await message.question("¿Deseas eliminar esta categoría?");
+        if (!question.isConfirmed) {
+            return
+        }
+
+        const pass = await message.input("Ingresa tu constraseña");
+        if (!pass.isConfirmed) {
+            return;
+        }
+
+        try {
+            const res = await request.post("categoria/deleteAll", {id, pass: pass.value});
+            await message.success(res.data.message);
+            navigate("/admin/categorias/todas");
+        } catch (error) {
+            message.error("Lo sentimos, ocurrió un error");
+        }
+    }
+
 
     return (
         <>
-            <Header />
+            <Header title={id ? 'Crea una categoría' : 'Edita tu categoría'} btnLabel="Eliminar" btnClass="btn-sm btn-danger" customHandler={erase} />
             <Main>
                 <form onSubmit={e => id ? update(e) : create(e)} className='d-flex flex-wrap'>
                     <div className="form-group col-12">

@@ -13,7 +13,6 @@ const CategoriasListado = () => {
         try {
             const response = await request.get("categoria/get");
             setCategorias(response.data);
-            console.log(categorias);
         } catch (error) {
             return message.error('Algo salió mal')
         }
@@ -31,7 +30,7 @@ const CategoriasListado = () => {
                 <div className="d-flex flex-wrap">
                     {!categorias.length ? <h3 className="text-center">Aún no se han agregado categorías</h3> : null}
                     {categorias.map((categoria, c) => 
-                        <Link to={`/admin/categorias/ver/${categoria.id}`} className="card col-lg-3 m-1">
+                        <Link to={`/admin/categorias/ver/${categoria.id}`} className="card col-lg-3 m-1" key={`categoria${c}`}>
                             <img src={`${categoria.image || thumb}`} alt="" className="card-img-top" />
                             <h3 className="text-center">{ categoria.categoria }</h3>
                         </Link>
