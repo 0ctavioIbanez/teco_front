@@ -5,3 +5,7 @@ img {
 u:hover {
   cursor: pointer;
 }
+
+.hover-pointer:hover {
+  cursor: pointer;
+}

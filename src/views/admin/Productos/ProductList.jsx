@@ -56,10 +56,10 @@ const ProductList = () => {
               </select>
             </div>
             <div className="form-group">
-              <button class="btn btn-outline-danger btn-sm">
+              <button className="btn btn-outline-danger btn-sm">
                 Limpiar
               </button>
-              <button class="btn btn-primary mt-1 btn-sm">
+              <button className="btn btn-primary mt-1 btn-sm">
                 Aplicar
               </button>
             </div>
