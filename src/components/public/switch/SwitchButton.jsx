@@ -8,8 +8,12 @@ const SwitchButton = ({name, checked, handler}) => {
 
   const controller = checked => {
     if (typeof handler === 'function') {
-      handler(checked);
+      const newPaylod = {};
+      newPaylod[name] = checked;
+      handler(newPaylod);
     }
+
+    handleEnabled(checked)
   }
 
   return (
@@ -20,7 +24,7 @@ const SwitchButton = ({name, checked, handler}) => {
           name={name}
           id={id}
           checked={enabled}
-          onChange={e => handleEnabled(!enabled)}
+          onChange={e => controller(e.target.checked)}
         />
         <label className='switch__label' htmlFor={id}>
           <span></span>

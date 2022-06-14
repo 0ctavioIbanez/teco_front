@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Select from "react-select";
 
-const Search = ({ items, name, label }) => {
-    const [manual, toggleManual] = useState(items.length >0 ? false : true);
+const Search = ({ className, items, name, label, state, handler }) => {
+    const [manual, toggleManual] = useState(false);
+
+    useEffect(() => {
+        toggleManual(items.length > 0 ? false : true)
+    }, [items])
+
 
     const customStyles = {
         multiValueLabel: (styles, { data }) => {
@@ -12,10 +17,32 @@ const Search = ({ items, name, label }) => {
                 borderLeft: `5px solid ${found.color}`,
             }
         },
+    };
+
+    const controller = (items, input = false) => {
+        if (input) {
+            const newPayload = {};
+            newPayload[name] = items;
+            if (state) {
+                return handler({...state, ...newPayload})
+            }
+            return handler({...newPayload})
+        }
+
+        if (typeof handler === 'function') {
+            const newPayload = {};
+            newPayload[name] = items.map(opt => opt.value);
+            
+            if (state) {
+                handler({ ...state, ...newPayload })
+            } else {
+                handler(newPayload)
+            }
+        }
     }
 
     return (
-        <div className="form-group col-md-4">
+        <div className={`form-group ${className}`}>
             <div className="d-flex justify-content-between">
                 <label htmlFor="">{label}</label>
                 {items.length ?
@@ -26,8 +53,9 @@ const Search = ({ items, name, label }) => {
                 }
             </div>
             {manual ?
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" name={name} onChange={e => controller(e.target.value, true)} />
                 : <Select
+                    onChange={opt => controller(opt)}
                     options={items}
                     isMulti
                     name={name}

@@ -1,6 +1,7 @@
-// Aqui
 import Header from "../../../components/admin/Header"
 import { useState } from "react";
+import { message } from '../../../assets/helpers/Message';
+import { request } from "../../../services/request";
 
 
 import Main from '../layout/Main'
@@ -11,28 +12,53 @@ import Modelos from "./steps/Modelos";
 
 const ProductNew = () => {
     const [step, setStep] = useState(1);
+    const [payload, setPayload] = useState({});
     const maxStep = 3;
 
-    const handleStep = to => {
-        if (step == 0 && to === -1 || step == maxStep && to === 1) {
+    const handleStep = async to => {
+        if (step == 0 && to === -1) {
             return;
         }
 
-        setStep(step + to);
+        if (step === 1) {
+            const { nombre, codigo, costo, precio } = payload.general;
+            if (!nombre || !codigo || !costo || !precio) {
+                return message.error('Por favor completa los campos requeridos');
+            }
+        }
+
+        if (step === 2) {
+            const { categorias, departamentos } = payload.detalles;
+            if (!categorias.length || !departamentos.length) {
+                return message.error('Por favor completa los campos requeridos');
+            }
+        }
+
+        if (step === 3) {
+            const { color, talla } = payload.modelos;
+            if (!color.length || !talla.length) {
+                return message.error('Por favor completa los campos requeridos');
+            }
+
+            const res = await request.post('producto/create', payload);
+            console.log(res);
+            return
+        }
+        // setStep(step + to);
     };
 
     return (
         <>
             <Header title="Crear nuevo producto" subtitle={`${step} de ${maxStep}`} />
             <Main>
-                {step == 1 ? <General /> : null}
-                {step == 2 ? <CatDeptos /> : null}
-                {step == 3 ? <Modelos /> : null}
+                {step == 1 ? <General handleGeneralPayload={setPayload} state={payload} /> : null}
+                {step == 2 ? <CatDeptos handleGeneralPayload={setPayload} state={payload} /> : null}
+                {step == 3 ? <Modelos handleGeneralPayload={setPayload} state={payload} /> : null}
 
                 <div className="d-flex justify-content-end">
                     {step > 1 ? <button className="btn btn-outline-primary mr-1" onClick={e => handleStep(-1)}>Regresar</button> : null}
                     <button className="btn btn-primary" onClick={e => handleStep(1)}>
-                        { maxStep == step ? 'Finalizar' : 'Continuar' }
+                        {maxStep == step ? 'Finalizar' : 'Continuar'}
                     </button>
                 </div>
             </Main>
