@@ -22,7 +22,9 @@ const General = ({ handleGeneralPayload, state }) => {
     }, [images]);
 
     useEffect(() => {
-        handleGeneralPayload({ ...state, general: payload });
+        const _images = payload.images.map(image => image.base64);
+        const _payload = {...payload, images: _images}
+        handleGeneralPayload({ ...state, general: _payload });
     }, [payload]);
 
     const handleVisible = check => {

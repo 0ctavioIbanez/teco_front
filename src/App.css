@@ -41,3 +41,11 @@ u:hover {
   border-radius: 0.25rem;
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+
+.text-decoration-none {
+  text-decoration: none!important;
+}
+.hover-shadow:hover {
+  transition: all .3s ease;
+  box-shadow: 2px 2px 20px rgba(53, 53, 53, 0.527)!important;
+}

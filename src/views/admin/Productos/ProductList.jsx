@@ -1,11 +1,66 @@
 import Header from "../../../components/admin/Header"
 import ProductCard from "../../../components/admin/ProductCard.admin"
+import { request } from "../../../services/request"
+import { useState, useEffect } from "react"
+import { message } from "../../../assets/helpers/Message"
+import SwitchButton from "../../../components/public/switch/SwitchButton"
 
 const ProductList = () => {
+  const [productos, setProductos] = useState([]);
+  const [publicView, setPublicView] = useState(true);
+
+  const getProductos = async e => {
+    try {
+      const res = await request.get(`producto/get`);
+      setProductos(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const checkViewType = () => {
+    const status = localStorage.getItem("pv");
+    if (!status) {
+      localStorage.setItem("pv", "true");
+    }
+    if (status === "false") {
+      return setPublicView(false);
+    }
+
+    setPublicView(true);
+  }
+
+  const hanldeView = async ({publicCheck}) => {
+    if (!publicCheck) {
+      const input = await message.input("Ingresa tu contraseña");
+      console.log(input);
+    }
+    localStorage.setItem("pv", String(publicCheck));
+    setPublicView(publicCheck);
+  }
+
+
+  useEffect(() => {
+    getProductos();
+    checkViewType();
+  }, [])
+
+
   return (
     <>
 
-      <Header title="Listado de productos" subtitle="Inicia una búsqueda" />
+      <div className="panel-header bg-primary-gradient">
+        <div className="page-inner py-5">
+          <div className="d-flex flex-wrap align-items-left align-items-md-center flex-column flex-md-row justify-content-between">
+            <h2 className="text-white pb-2 fw-bold mb-0">Listado de productos</h2>
+            <div className="d-flex align-items-center">
+              <span className="text-light mr-1">Vista pública</span>
+              <SwitchButton name="publicCheck" checked={true} handler={hanldeView} />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="page-inner mt--5">
         <div className="bg-light p-2 card">
           <div className="card shadow mb-2">
@@ -70,8 +125,10 @@ const ProductList = () => {
 
 
         <div className="card shadow-sm">
-          <div className="card-body">
-            <ProductCard />
+          <div className="card-body d-flex flex-wrap p-0">
+            {productos.map((producto, p) =>
+              <ProductCard producto={producto} key={`producto${p}`} publicView={publicView} />
+            )}
           </div>
 
         </div>

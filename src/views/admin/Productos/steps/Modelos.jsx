@@ -31,7 +31,9 @@ const Modelos = ({ handleGeneralPayload, state }) => {
     }, []);
 
     useEffect(() => {
-        handleGeneralPayload({ ...state, modelos: payload });
+        const _images = payload.images.map(image => image.base64);
+        const _payload = {...payload, images: _images};
+        handleGeneralPayload({ ...state, modelos: _payload });
     }, [payload]);
 
     const controller = check => {

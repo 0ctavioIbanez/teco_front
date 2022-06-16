@@ -18,11 +18,11 @@ export const routes = [
                 title: "Productos",
                 icon: "",
                 navs: [{
-                    to: "producto-listado",
+                    to: "producto/listado",
                     label: "Listado"
                 },
                 {
-                    to: "producto-nuevo",
+                    to: "producto/nuevo",
                     label: "Crear nuevo"
                 }]
             },
@@ -48,7 +48,7 @@ export const routes = [
                 title: "Mis bodegas",
                 icon: "",
                 navs: [{
-                    to: "producto-listado",
+                    to: "producto/listado",
                     label: "Listado"
                 },
                 ]
@@ -57,7 +57,7 @@ export const routes = [
                 title: "Mis tiendas",
                 icon: "",
                 navs: [{
-                    to: "producto-listado",
+                    to: "producto/listado",
                     label: "Listado"
                 },
                 ]

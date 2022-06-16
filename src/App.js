@@ -31,8 +31,11 @@ function App() {
 
           <Route element={<Layout />} >
             <Route path='dashboard' element={<Dashboard />} />
-            <Route path='producto-listado' element={<ProductList />} />
-            <Route path='producto-nuevo' element={<ProductNew />} />
+            
+            <Route path='producto'>
+              <Route path='listado' element={<ProductList />} />
+              <Route path='nuevo' element={<ProductNew />} />
+            </Route>
 
             <Route path='departamento'>
               <Route path='todos' element={ <DepartamentosListado /> } />
