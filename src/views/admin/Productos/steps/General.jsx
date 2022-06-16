@@ -1,10 +1,11 @@
 import Pond from '../../../../components/admin/Filepond/Pond'
 import { request } from '../../../../services/request';
 import { useState, useEffect } from 'react';
+import SwitchButton from '../../../../components/public/switch/SwitchButton';
 
-const General = ({handleGeneralPayload, state}) => {
-    const [payload, setPayload] = useState({ 
-        codigo: '', nombre: '', costo: null, precio: null, nota: '', descripcion: '', images: []
+const General = ({ handleGeneralPayload, state }) => {
+    const [payload, setPayload] = useState({
+        codigo: '', nombre: '', costo: '', precio: '', nota: '', descripcion: '', images: [], visible: true
     });
     const [images, setImages] = useState([]);
     const [loadCode, setLoadCode] = useState(false);
@@ -17,23 +18,31 @@ const General = ({handleGeneralPayload, state}) => {
     }
 
     useEffect(() => {
-      setPayload({...payload, images})
+        setPayload({ ...payload, images })
     }, [images]);
 
     useEffect(() => {
-      handleGeneralPayload({...state, general: payload})
+        handleGeneralPayload({ ...state, general: payload });
     }, [payload]);
-    
+
+    const handleVisible = check => {
+        setPayload({ ...payload, ...check })
+    }
+
 
     return (
         <div className="card">
-            <div className="card-header">
+            <div className="card-header d-flex justify-content-between">
                 <h4 className="font-weight-bold">Detalles generales</h4>
+                <div className="d-flex align-items-center dform-group">
+                    <b className='mr-1'>Visible</b>
+                    <SwitchButton name="visible" handler={handleVisible} checked={true} />
+                </div>
             </div>
             <form className="card-body d-flex flex-wrap">
                 <div className="form-group col-lg-8">
                     <label><span className='text-danger'>*</span> Nombre</label>
-                    <input type="text" className="form-control" name="nombre" onChange={e => setPayload({...payload, nombre: e.target.value})} value={payload.nombre} />
+                    <input type="text" className="form-control" name="nombre" onChange={e => setPayload({ ...payload, nombre: e.target.value })} value={payload.nombre} />
                 </div>
                 <div className="form-group col-md-4 col-lg-4">
                     <label><span className='text-danger'>*</span> Código</label>
@@ -49,7 +58,7 @@ const General = ({handleGeneralPayload, state}) => {
                 </div>
                 <div className="form-group col-6 col-md-4 col-lg-3">
                     <label><span className='text-danger'>*</span> Costo</label>
-                    <input type="number" className="form-control" name="costo" value={payload.costo} onChange={e => setPayload({...payload, costo: e.target.value})} />
+                    <input type="number" className="form-control" name="costo" value={payload.costo} onChange={e => setPayload({ ...payload, costo: e.target.value })} />
                 </div>
                 <div className="form-group col-6 col-md-4 col-lg-3">
                     <label><span className='text-danger'>*</span> Precio</label>

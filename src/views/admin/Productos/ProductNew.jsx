@@ -20,21 +20,21 @@ const ProductNew = () => {
             return;
         }
 
-        if (step === 1) {
+        if (step === 1 && to === 1) {
             const { nombre, codigo, costo, precio } = payload.general;
             if (!nombre || !codigo || !costo || !precio) {
                 return message.error('Por favor completa los campos requeridos');
             }
         }
 
-        if (step === 2) {
+        if (step === 2 && to === 1) {
             const { categorias, departamentos } = payload.detalles;
             if (!categorias.length || !departamentos.length) {
                 return message.error('Por favor completa los campos requeridos');
             }
         }
 
-        if (step === 3) {
+        if (step === 3 && to === 1) {
             const { color, talla } = payload.modelos;
             if (!color.length || !talla.length) {
                 return message.error('Por favor completa los campos requeridos');
@@ -44,7 +44,8 @@ const ProductNew = () => {
             console.log(res);
             return
         }
-        // setStep(step + to);
+        console.log(payload);
+        setStep(step + to);
     };
 
     return (
