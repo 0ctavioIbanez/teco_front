@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 const Search = ({ items, name, state, handler, values }) => {
     const [selected, setSelected] = useState([]);
+    const [shouldRender, setshouldRender] = useState(true)
 
     const customStyles = {
         multiValueLabel: (styles, { data }) => {
@@ -14,19 +15,13 @@ const Search = ({ items, name, state, handler, values }) => {
         },
     };
 
-    const controller = (items, input = false) => {
-        if (input) {
-            const newPayload = {};
-            newPayload[name] = items;
-            if (state) {
-                return handler({ ...state, ...newPayload })
-            }
-            return handler({ ...newPayload })
-        }
+    const controller = (_items) => {
+        setshouldRender(false)
+        setSelected(_items)
 
         if (typeof handler === 'function') {
             const newPayload = {};
-            newPayload[name] = items.map(opt => opt.value);
+            newPayload[name] = _items.map(opt => opt.value);
 
             if (state) {
                 handler({ ...state, ...newPayload })
@@ -37,7 +32,7 @@ const Search = ({ items, name, state, handler, values }) => {
     }
 
     useEffect(() => {
-        if (items && items.length > 0 && values) {
+        if (items && items.length > 0 && values && shouldRender) {
             const result = values.map(value => items.find(item => item.value == value));
             setSelected(result)
         }

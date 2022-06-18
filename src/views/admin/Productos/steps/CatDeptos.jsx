@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import { request } from '../../../../services/request'
 import Search from "../../../../components/admin/form/Search/Search";
 import { TagsInput } from "react-tag-input-component";
-import Select from "react-select";
 
 const CatDeptos = ({ handleGeneralPayload, state, selected }) => {
     const [departamentos, setDepartamentos] = useState([]);
@@ -68,6 +67,7 @@ const CatDeptos = ({ handleGeneralPayload, state, selected }) => {
                             onChange={handleCodigos}
                             name="codigos"
                             placeHolder="Agregar código"
+                            value={selected.codigos}
                         />
                     </div>
                 </form>

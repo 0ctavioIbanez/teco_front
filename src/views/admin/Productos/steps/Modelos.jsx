@@ -24,6 +24,9 @@ const Modelos = ({ handleGeneralPayload, state }) => {
     };
 
     useEffect(() => {
+        if (state.modelos) {
+            setPayload({...state.modelos})
+        }
         Promise.all([
             getColores(),
             getTallas()
@@ -32,7 +35,7 @@ const Modelos = ({ handleGeneralPayload, state }) => {
 
     useEffect(() => {
         const _images = payload.images.map(image => image.base64);
-        const _payload = {...payload, images: _images};
+        const _payload = { ...payload, images: _images };
         handleGeneralPayload({ ...state, modelos: _payload });
     }, [payload]);
 
@@ -60,23 +63,32 @@ const Modelos = ({ handleGeneralPayload, state }) => {
                     </div>
                 </div>
                 <div className="card-body d-flex flex-wrap">
-                    <Search handler={setPayload} state={payload} className="col-md-6" items={colores} name='color' label="* Colores" />
-                    <Search handler={setPayload} state={payload} className="col-md-6" items={tallas} name='talla' label="* Tallas" />
+                    <div className="form-group col-md-6">
+                        <label htmlFor="">Colores</label>
+                        <Search values={payload.color} handler={setPayload} state={payload} className="col-md-6" items={colores} name='color' />
+                    </div>
+                    <div className="form-group col-md-6">
+                        <label htmlFor="">Tallas</label>
+                        <Search handler={setPayload} state={payload} className="col-md-6" items={tallas} name='talla' />
+                    </div>
                     <div className="form-group col-md-3">
                         <label htmlFor="">Costo extra</label>
-                        <input type="number" className="form-control" value={payload.costoExtra} onChange={e => setPayload({ ...payload, costoExtra: e.target.value })} />
+                        <input type="number" className="form-control text-center" value={payload.costoExtra} onChange={e => setPayload({ ...payload, costoExtra: e.target.value })} />
                     </div>
                     <div className="form-group col-md-3">
                         <label htmlFor="">Precio extra</label>
-                        <input type="number" className="form-control" value={payload.precioExtra} onChange={e => setPayload({ ...payload, precioExtra: e.target.value })} />
+                        <input type="number" className="form-control text-center" value={payload.precioExtra} onChange={e => setPayload({ ...payload, precioExtra: e.target.value })} />
                     </div>
                     <div className="form-group col-md-3">
                         <label htmlFor="">Stock</label>
-                        <input type="number" className="form-control" value={payload.stock} onChange={e => setPayload({ ...payload, stock: e.target.value })} />
+                        <input type="number" className="form-control text-center" value={payload.stock} onChange={e => setPayload({ ...payload, stock: e.target.value })} />
                     </div>
                     <div className="form-group col-6 col-md-3">
                         <label htmlFor="">¿Visible sin stock?</label>
-                        <SwitchButton handler={controller} name="visibleSinStock" checked={true} />
+                        <div className="d-flex justify-content-center">
+                            <SwitchButton handler={controller} name="visibleSinStock" checked={true} />
+
+                        </div>
                     </div>
                 </div>
             </div>
