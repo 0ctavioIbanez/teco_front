@@ -1,20 +1,15 @@
-import { useState, useEffect } from "react";
 import Select from "react-select";
+import { useState, useEffect } from "react";
 
-const Search = ({ className, items, name, label, state, handler }) => {
-    const [manual, toggleManual] = useState(false);
-
-    useEffect(() => {
-        toggleManual(items.length > 0 ? false : true)
-    }, [items])
-
+const Search = ({ items, name, state, handler, values }) => {
+    const [selected, setSelected] = useState([]);
 
     const customStyles = {
         multiValueLabel: (styles, { data }) => {
             const found = items.find(item => item.value == data.value);
             return {
                 ...styles,
-                borderLeft: `5px solid ${found.color}`,
+                borderLeft: found ? `5px solid ${found.color}` : null,
             }
         },
     };
@@ -24,15 +19,15 @@ const Search = ({ className, items, name, label, state, handler }) => {
             const newPayload = {};
             newPayload[name] = items;
             if (state) {
-                return handler({...state, ...newPayload})
+                return handler({ ...state, ...newPayload })
             }
-            return handler({...newPayload})
+            return handler({ ...newPayload })
         }
 
         if (typeof handler === 'function') {
             const newPayload = {};
             newPayload[name] = items.map(opt => opt.value);
-            
+
             if (state) {
                 handler({ ...state, ...newPayload })
             } else {
@@ -41,30 +36,27 @@ const Search = ({ className, items, name, label, state, handler }) => {
         }
     }
 
+    useEffect(() => {
+        if (items && items.length > 0 && values) {
+            const result = values.map(value => items.find(item => item.value == value));
+            setSelected(result)
+        }
+    }, [items])
+
     return (
-        <div className={`form-group ${className}`}>
-            <div className="d-flex justify-content-between">
-                <label htmlFor="">{label}</label>
-                {items.length ?
-                    <small className={`hover-pointer text-${manual ? 'success' : 'primary'}`} onClick={e => toggleManual(!manual)}>
-                        <b>{manual ? 'Buscar existente' : 'Crear nuevo'}</b>
-                    </small>
-                    : null
-                }
-            </div>
-            {manual ?
-                <input type="text" className="form-control" name={name} onChange={e => controller(e.target.value, true)} />
-                : <Select
-                    onChange={opt => controller(opt)}
-                    options={items}
-                    isMulti
-                    name={name}
-                    styles={customStyles}
-                    noOptionsMessage={e => "No hay más resultados"}
-                    placeholder='Buscar...'
-                />
-            }
-        </div>
+        <>
+            <Select
+                onChange={opt => controller(opt)}
+                options={items}
+                isMulti
+                name={name}
+                styles={customStyles}
+                noOptionsMessage={e => "No hay más resultados"}
+                placeholder='Buscar...'
+                value={selected}
+            />
+
+        </>
     )
 }
 

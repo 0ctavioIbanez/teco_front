@@ -3,7 +3,7 @@ import { request } from '../../../../services/request';
 import { useState, useEffect } from 'react';
 import SwitchButton from '../../../../components/public/switch/SwitchButton';
 
-const General = ({ handleGeneralPayload, state }) => {
+const General = ({ handleGeneralPayload, state, selected }) => {
     const [payload, setPayload] = useState({
         codigo: '', nombre: '', costo: '', precio: '', nota: '', descripcion: '', images: [], visible: true
     });
@@ -26,6 +26,14 @@ const General = ({ handleGeneralPayload, state }) => {
         const _payload = {...payload, images: _images}
         handleGeneralPayload({ ...state, general: _payload });
     }, [payload]);
+
+    useEffect(() => {
+        const selectionValues = Object.values(selected).filter(value => value);
+        if (selectionValues.length >= 4) {
+            setPayload(selected)
+        }
+    }, [])
+    
 
     const handleVisible = check => {
         setPayload({ ...payload, ...check })

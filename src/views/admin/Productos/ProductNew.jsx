@@ -12,7 +12,7 @@ import Modelos from "./steps/Modelos";
 
 const ProductNew = () => {
     const [step, setStep] = useState(1);
-    const [payload, setPayload] = useState({});
+    const [payload, setPayload] = useState({general: {}, detalles: {}, modelos: {}});
     const maxStep = 3;
 
     const handleStep = async to => {
@@ -52,8 +52,8 @@ const ProductNew = () => {
         <>
             <Header title="Crear nuevo producto" subtitle={`${step} de ${maxStep}`} />
             <Main>
-                {step == 1 ? <General handleGeneralPayload={setPayload} state={payload} /> : null}
-                {step == 2 ? <CatDeptos handleGeneralPayload={setPayload} state={payload} /> : null}
+                {step == 1 ? <General selected={payload.general} handleGeneralPayload={setPayload} state={payload} /> : null}
+                {step == 2 ? <CatDeptos selected={payload.detalles} handleGeneralPayload={setPayload} state={payload} /> : null}
                 {step == 3 ? <Modelos handleGeneralPayload={setPayload} state={payload} /> : null}
 
                 <div className="d-flex justify-content-end">
