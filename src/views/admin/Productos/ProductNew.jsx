@@ -41,10 +41,9 @@ const ProductNew = () => {
             }
 
             const res = await request.post('producto/create', payload);
-            console.log(res);
             return
         }
-        console.log(payload);
+        console.log("el payload es", payload);
         setStep(step + to);
     };
 

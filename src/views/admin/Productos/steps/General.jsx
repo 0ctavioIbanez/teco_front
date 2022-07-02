@@ -7,8 +7,9 @@ const General = ({ handleGeneralPayload, state, selected }) => {
     const [payload, setPayload] = useState({
         codigo: '', nombre: '', costo: '', precio: '', nota: '', descripcion: '', images: [], visible: true
     });
-    const [images, setImages] = useState([]);
+    
     const [loadCode, setLoadCode] = useState(false);
+    let tmpImages = [];
 
     const generateCode = async () => {
         setLoadCode(true);
@@ -18,13 +19,7 @@ const General = ({ handleGeneralPayload, state, selected }) => {
     }
 
     useEffect(() => {
-        setPayload({ ...payload, images })
-    }, [images]);
-
-    useEffect(() => {
-        const _images = payload.images.map(image => image.base64);
-        const _payload = {...payload, images: _images}
-        handleGeneralPayload({ ...state, general: _payload });
+        handleGeneralPayload({ ...state, general: payload });
     }, [payload]);
 
     useEffect(() => {
@@ -32,11 +27,26 @@ const General = ({ handleGeneralPayload, state, selected }) => {
         if (selectionValues.length >= 4) {
             setPayload(selected)
         }
-    }, [])
-    
+    }, []);
+
+
 
     const handleVisible = check => {
         setPayload({ ...payload, ...check })
+    }
+
+    const onRemoveImage = id => {
+        const _images = payload.images.filter(image => image.id !== id);
+        setPayload({...payload, images: _images})
+    }
+    
+    const onAddImages = image => {
+        console.log("images from general");
+        if (Array.isArray(image)) {
+            setPayload({...payload, images: [...payload.images, ...image]})
+        } else {
+            setPayload({...payload, images: [...payload.images, image]})
+        }
     }
 
 
@@ -85,7 +95,12 @@ const General = ({ handleGeneralPayload, state, selected }) => {
 
                 <div className="w-100 form-group">
                     <label htmlFor="">Imágen principal</label>
-                    <Pond multiple={true} handler={setImages} state={images} />
+                    <Pond 
+                        files={payload.images}
+                        multiple={true}
+                        onRemove={onRemoveImage}
+                        handler={onAddImages}
+                    />
                 </div>
             </form>
         </div>
