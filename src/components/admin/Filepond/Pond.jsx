@@ -20,7 +20,7 @@ registerPlugin(
     FilePondPluginFileRename,
     FilePondPluginFilePoster);
 
-const Pond = ({ multiple, name, handler, onRemove, files }) => {
+const Pond = ({ multiple, name, onUpload, onRemove, files }) => {
     const [filesState, setFilesState] = useState(null);
     const [shouldEmit, setShouldEmit] = useState(true);
     let temporalPonds = [];
@@ -53,7 +53,7 @@ const Pond = ({ multiple, name, handler, onRemove, files }) => {
 
 
     const addPond = ({ id, getFileEncodeBase64String }) => {
-        if (typeof handler !== 'function' || !shouldEmit) {
+        if (typeof onUpload !== 'function' || !shouldEmit) {
             return
         }
 
@@ -63,15 +63,17 @@ const Pond = ({ multiple, name, handler, onRemove, files }) => {
         if (isMultiple > 1) {
             temporalPonds = [...temporalPonds, payload];
             if (isMultiple === temporalPonds.length) {
-                return handler(temporalPonds);
+                return onUpload(temporalPonds);
             }
         } else {
-            handler(payload);
+            onUpload([payload]);
         }
     };
 
     const removePond = getMetadata => {
-        return onRemove(getMetadata().id);
+        if (typeof onRemove === 'function') {
+            onRemove(getMetadata().id);
+        }
     }
 
     return (

@@ -7,7 +7,7 @@ const General = ({ handleGeneralPayload, state, selected }) => {
     const [payload, setPayload] = useState({
         codigo: '', nombre: '', costo: '', precio: '', nota: '', descripcion: '', images: [], visible: true
     });
-    
+
     const [loadCode, setLoadCode] = useState(false);
     let tmpImages = [];
 
@@ -37,16 +37,12 @@ const General = ({ handleGeneralPayload, state, selected }) => {
 
     const onRemoveImage = id => {
         const _images = payload.images.filter(image => image.id !== id);
-        setPayload({...payload, images: _images})
+        setPayload({ ...payload, images: _images })
     }
-    
+
     const onAddImages = image => {
         console.log("images from general");
-        if (Array.isArray(image)) {
-            setPayload({...payload, images: [...payload.images, ...image]})
-        } else {
-            setPayload({...payload, images: [...payload.images, image]})
-        }
+        setPayload({ ...payload, images: [...payload.images, ...image] })
     }
 
 
@@ -78,11 +74,11 @@ const General = ({ handleGeneralPayload, state, selected }) => {
                 </div>
                 <div className="form-group col-6 col-md-4 col-lg-3">
                     <label><span className='text-danger'>*</span> Costo</label>
-                    <input type="number" className="form-control" name="costo" value={payload.costo} onChange={e => setPayload({ ...payload, costo: e.target.value })} />
+                    <input type="number" min={0} className="form-control" name="costo" value={payload.costo} onChange={e => setPayload({ ...payload, costo: e.target.value })} />
                 </div>
                 <div className="form-group col-6 col-md-4 col-lg-3">
                     <label><span className='text-danger'>*</span> Precio</label>
-                    <input type="number" className="form-control" name="precio" value={payload.precio} onChange={e => setPayload({ ...payload, precio: e.target.value })} />
+                    <input type="number" min={1} className="form-control" name="precio" value={payload.precio} onChange={e => setPayload({ ...payload, precio: e.target.value })} />
                 </div>
                 <div className="form-group col-lg-6">
                     <label>Nota</label>
@@ -95,11 +91,11 @@ const General = ({ handleGeneralPayload, state, selected }) => {
 
                 <div className="w-100 form-group">
                     <label htmlFor="">Imágen principal</label>
-                    <Pond 
+                    <Pond
                         files={payload.images}
                         multiple={true}
                         onRemove={onRemoveImage}
-                        handler={onAddImages}
+                        onUpload={onAddImages}
                     />
                 </div>
             </form>
