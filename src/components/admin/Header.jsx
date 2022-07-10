@@ -22,7 +22,7 @@ const Header = ({ title, subtitle, btnTo, btnLabel, customHandler, btnClass }) =
 
                     {btnTo ?
                         <div className="ml-md-auto py-2 py-md-0">
-                            <Link to={btnTo} className="btn btn-secondary btn-round">{btnLabel}</Link>
+                            <Link to={btnTo} className={`btn-round btn ${btnClass || 'btn-secondary'}`}>{btnLabel}</Link>
                         </div>
                         : null
                     }

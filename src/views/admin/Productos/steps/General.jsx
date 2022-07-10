@@ -7,9 +7,7 @@ const General = ({ handleGeneralPayload, state, selected }) => {
     const [payload, setPayload] = useState({
         codigo: '', nombre: '', costo: '', precio: '', nota: '', descripcion: '', images: [], visible: true
     });
-
     const [loadCode, setLoadCode] = useState(false);
-    let tmpImages = [];
 
     const generateCode = async () => {
         setLoadCode(true);
@@ -19,7 +17,9 @@ const General = ({ handleGeneralPayload, state, selected }) => {
     }
 
     useEffect(() => {
-        handleGeneralPayload({ ...state, general: payload });
+        if (typeof handleGeneralPayload === 'function') {
+            handleGeneralPayload({ ...state, general: payload });
+        }
     }, [payload]);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const General = ({ handleGeneralPayload, state, selected }) => {
         if (selectionValues.length >= 4) {
             setPayload(selected)
         }
-    }, []);
+    }, [selected]);
 
 
 
@@ -41,7 +41,6 @@ const General = ({ handleGeneralPayload, state, selected }) => {
     }
 
     const onAddImages = image => {
-        console.log("images from general");
         setPayload({ ...payload, images: [...payload.images, ...image] })
     }
 

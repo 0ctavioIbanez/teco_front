@@ -12,7 +12,7 @@ import Modelos from "./steps/Modelos";
 
 const ProductNew = () => {
     const [step, setStep] = useState(1);
-    const [payload, setPayload] = useState({general: {}, detalles: {}, modelos: {}});
+    const [payload, setPayload] = useState({ general: {}, detalles: {}, modelos: {} });
     const maxStep = 3;
 
     const handleStep = async to => {
@@ -40,10 +40,24 @@ const ProductNew = () => {
                 return message.error('Por favor completa los campos requeridos');
             }
 
-            const res = await request.post('producto/create', payload);
+            // Prepare images
+            const general_images = payload.general.images.map(image => image.base64);
+            const modelos_images = payload.modelos.images.map(image => image.base64);
+            const general = { ...payload.general, images: general_images };
+            const modelos = { ...payload.modelos, images: modelos_images };
+            const _payload = { ...payload, modelos, general };
+
+            try {
+                const { data } = await request.post('producto/create', _payload);
+                setPayload({ general: {}, detalles: {}, modelos: {} });
+                message.success(data.message);
+                setStep(1);
+            } catch (error) {
+                message.error('Lo sentimos, ocurrió un error');
+                console.log(error);
+            }
             return
         }
-        console.log("el payload es", payload);
         setStep(step + to);
     };
 

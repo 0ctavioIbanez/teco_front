@@ -4,7 +4,7 @@ import thumb from '../../assets/img/no-preview.jpeg';
 
 const ProductCard = ({ producto, publicView }) => {
     return (
-        <Link to="/" className="card shadow card-profile col-6 col-md-4 mx-1 px-0 text-center text-decoration-none hover-shadow align-self-start">
+        <Link to={`/admin/producto/ver/${producto.id}`} className="card card__product shadow card-profile mx-1 px-0 text-center text-decoration-none hover-shadow align-self-start">
 
             <img className="card-img-top" src={producto.thumb || thumb} alt="Card image cap" />
 

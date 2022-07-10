@@ -4,7 +4,7 @@ import Search from '../../../../components/admin/form/Search/Search'
 import SwitchButton from "../../../../components/public/switch/SwitchButton";
 import Pond from '../../../../components/admin/Filepond/Pond';
 
-const Modelos = ({ handleGeneralPayload, state, selected }) => {
+const Modelos = ({ handleGeneralPayload, state }) => {
     const [colores, setColores] = useState([]);
     const [tallas, setTallas] = useState([]);
     const [payload, setPayload] = useState({

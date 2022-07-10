@@ -10,6 +10,7 @@ import Login from './views/admin/Login';
 // Productos
 import ProductList from './views/admin/Productos/ProductList';
 import ProductNew from './views/admin/Productos/ProductNew';
+import Ver from './views/admin/Productos/Ver';
 
 // Departamentos
 import DepartamentosListado from './views/admin/departamentos/DepartamentosListado';
@@ -35,6 +36,7 @@ function App() {
             <Route path='producto'>
               <Route path='listado' element={<ProductList />} />
               <Route path='nuevo' element={<ProductNew />} />
+              <Route path='ver/:id' element={<Ver />} />
             </Route>
 
             <Route path='departamento'>
