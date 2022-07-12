@@ -11,17 +11,20 @@ const Search = ({ onSearch }) => {
     const [departamentos, setDepartamentos] = useState([]);
     const [categorias, setCategorias] = useState([]);
     const [filters, setFilters] = useState(false)
-    const [searchText, setSearchText] = useState('');
+    const [selected, setSelected] = useState({});
     const [querySearch, setQuerySearch] = useSearchParams({});
 
     const handleSearch = async (llave, action) => {
         let value = null;
 
-        if (typeof action === 'object') {
+        if (typeof action === 'object' && action) {
             value = action.value;
+            const _selected = { ...selected };
+            _selected[llave] = action.value;
+            setSelected(_selected);
         } else if (typeof action === 'string' && llave === 'search') {
             value = action;
-            setSearchText(value);
+            setSelected({...selected, search: value})
         }
 
         const _query = qs.parse(window.location.search);
@@ -30,6 +33,7 @@ const Search = ({ onSearch }) => {
         if (!value) {
             delete _query[llave];
         }
+        setSelected(_query);
         setQuerySearch(_query);
     }
 
@@ -61,10 +65,21 @@ const Search = ({ onSearch }) => {
         onSearch(res.data.items);
     }
 
+    const handleValue = (selectedKey, arrayKey, state) => {
+        const _find = state.find(item => item.id == selected[selectedKey]);
+        if (!_find)
+            return null;
+
+        return {
+            label: _find[arrayKey],
+            value: _find.id
+        }
+    };
+
     const handleBoot = () => {
         const params = qs.parse(window.location.search);
         if (params) {
-            setSearchText(params.search);
+            setSelected(params)
         }
 
         Promise.all([
@@ -98,9 +113,9 @@ const Search = ({ onSearch }) => {
                             className='form-control'
                             placeholder="Buscar..."
                             onKeyUp={({ target }) => handleSearch('search', target.value)}
-                            onChange={({ target }) => setSearchText(target.value)}
+                            onChange={({ target }) => setSelected({...selected, search: target.value})}
                             style={{ paddingLeft: '20px!important' }}
-                            value={searchText}
+                            value={selected.search}
                         />
                     </div>
 
@@ -114,6 +129,7 @@ const Search = ({ onSearch }) => {
                         options={colores.map(({ color, id }) => ({ label: color, value: id }))}
                         onChange={(action) => handleSearch('color', action)}
                         isClearable={true}
+                        value={handleValue('color', 'color', colores)}
                     />
                 </div>
                 <div className="form-group col-lg-4">
@@ -122,6 +138,7 @@ const Search = ({ onSearch }) => {
                         options={tallas.map(({ id, talla }) => ({ label: talla, value: id }))}
                         onChange={(action) => handleSearch('talla', action)}
                         isClearable={true}
+                        value={handleValue('talla', 'talla', tallas)}
                     />
                 </div>
                 <div className="form-group col-lg-4">
@@ -130,6 +147,7 @@ const Search = ({ onSearch }) => {
                         options={departamentos.map(({ departamento, id }) => ({ label: departamento, value: id }))}
                         onChange={(action) => handleSearch('depto', action)}
                         isClearable={true}
+                        value={handleValue('depto', 'departamento', departamentos)}
                     />
                 </div>
                 <div className="form-group col-lg-4">
@@ -138,6 +156,7 @@ const Search = ({ onSearch }) => {
                         options={categorias.map(({ categoria, id }) => ({ label: categoria, value: id }))}
                         onChange={(action) => handleSearch('categoria', action)}
                         isClearable={true}
+                        value={handleValue('categoria', 'categoria', categorias)}
                     />
                 </div>
             </div>
