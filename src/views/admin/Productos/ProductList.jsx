@@ -30,17 +30,16 @@ const ProductList = () => {
     setPublicView(publicCheck);
   }
 
-  const getProductos = async e => {
-    try {
-      const res = await request.get(`producto/get`);
-      setProductos(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getProductos = async e => {
+  //   try {
+  //     const res = await request.get(`producto/get`);
+  //     setProductos(res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
-    getProductos();
     checkViewType();
   }, [])
 

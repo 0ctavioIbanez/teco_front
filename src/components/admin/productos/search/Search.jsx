@@ -10,16 +10,19 @@ const Search = ({ onSearch }) => {
     const [tallas, setTallas] = useState([]);
     const [departamentos, setDepartamentos] = useState([]);
     const [categorias, setCategorias] = useState([]);
+    const [filters, setFilters] = useState(false)
+    const [searchText, setSearchText] = useState('');
     const [querySearch, setQuerySearch] = useSearchParams({});
 
-    const handleSearch = async (llave, value) => {
-        // const prom = new Promise((resolve => {
-        //     setTimeout(() => {
-        //         resolve();
-        //     }, 1000);
-        // }));
+    const handleSearch = async (llave, action) => {
+        let value = null;
 
-        // await prom;
+        if (typeof action === 'object') {
+            value = action.value;
+        } else if (typeof action === 'string' && llave === 'search') {
+            value = action;
+            setSearchText(value);
+        }
 
         const _query = qs.parse(window.location.search);
         _query[llave] = value;
@@ -58,13 +61,22 @@ const Search = ({ onSearch }) => {
         onSearch(res.data.items);
     }
 
-    useEffect(() => {
+    const handleBoot = () => {
+        const params = qs.parse(window.location.search);
+        if (params) {
+            setSearchText(params.search);
+        }
+
         Promise.all([
             getColores(),
             getDepartamentos(),
             getCategorias(),
             getTallas()
         ])
+    }
+
+    useEffect(() => {
+        handleBoot()
     }, []);
 
     useEffect(() => {
@@ -86,47 +98,59 @@ const Search = ({ onSearch }) => {
                             className='form-control'
                             placeholder="Buscar..."
                             onKeyUp={({ target }) => handleSearch('search', target.value)}
+                            onChange={({ target }) => setSearchText(target.value)}
                             style={{ paddingLeft: '20px!important' }}
+                            value={searchText}
                         />
                     </div>
 
                 </div>
             </div>
 
-            <div className="overflow-x d-flex">
+            <div className={`overflow-x d-flex search__collapsed ${filters ? 'search__uncollapsed' : null}`}>
                 <div className="form-group col-lg-4">
                     <label htmlFor="">Color</label>
                     <Select
                         options={colores.map(({ color, id }) => ({ label: color, value: id }))}
-                        onChange={({ value }) => handleSearch('color', value)}
+                        onChange={(action) => handleSearch('color', action)}
+                        isClearable={true}
                     />
                 </div>
                 <div className="form-group col-lg-4">
                     <label htmlFor="">Talla</label>
                     <Select
                         options={tallas.map(({ id, talla }) => ({ label: talla, value: id }))}
-                        onChange={({ value }) => handleSearch('talla', value)}
+                        onChange={(action) => handleSearch('talla', action)}
+                        isClearable={true}
                     />
                 </div>
                 <div className="form-group col-lg-4">
                     <label htmlFor="">Departamentos</label>
                     <Select
                         options={departamentos.map(({ departamento, id }) => ({ label: departamento, value: id }))}
-                        onChange={({ value }) => handleSearch('depto', value)}
+                        onChange={(action) => handleSearch('depto', action)}
+                        isClearable={true}
                     />
                 </div>
                 <div className="form-group col-lg-4">
                     <label htmlFor="">Categorías</label>
                     <Select
                         options={categorias.map(({ categoria, id }) => ({ label: categoria, value: id }))}
-                        onChange={({ value }) => handleSearch('categoria', value)}
+                        onChange={(action) => handleSearch('categoria', action)}
+                        isClearable={true}
                     />
                 </div>
             </div>
-            <div className="col-12 d-flex justify-content-end">
-                <div className="form-group">
-                    <button className="btn btn-outline-danger btn-sm" onClick={e => setQuerySearch({})}>
-                        Limpiar
+            <div className="col-12 pr-0 d-flex justify-content-end">
+                <div className="form-group p-0">
+                    {filters ?
+                        <button className="btn btn-outline-danger btn-sm" onClick={e => setQuerySearch({})}>
+                            Limpiar
+                        </button>
+                        : null
+                    }
+                    <button className={`ml-2 btn btn-sm btn-${filters ? 'dark' : 'light'}`} onClick={e => setFilters(!filters)}>
+                        <i className="fas fa-filter"></i> Filtros <i className={`fas fa-chevron-${filters ? 'up' : 'down'}`}></i>
                     </button>
                 </div>
             </div>

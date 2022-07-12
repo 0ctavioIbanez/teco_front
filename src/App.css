@@ -60,6 +60,15 @@ u:hover {
   scroll-behavior: smooth;
   position: relative;
 }
+.search__collapsed {
+  max-height: 0px;
+  overflow: hidden;
+  transition: all .3s ease;
+}
+.search__uncollapsed {
+  max-height: 1000px!important;
+  overflow: visible!important;
+}
 
 
 /* Product Card */
