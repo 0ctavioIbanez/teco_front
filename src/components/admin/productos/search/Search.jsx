@@ -11,20 +11,17 @@ const Search = ({ onSearch }) => {
     const [departamentos, setDepartamentos] = useState([]);
     const [categorias, setCategorias] = useState([]);
     const [filters, setFilters] = useState(false)
-    const [selected, setSelected] = useState({});
+    const [selected, setSelected] = useState({ search: '' });
     const [querySearch, setQuerySearch] = useSearchParams({});
 
     const handleSearch = async (llave, action) => {
         let value = null;
 
-        if (typeof action === 'object' && action) {
-            value = action.value;
+        if (action) {
+            value = typeof action === 'object' ? action.value : action;
             const _selected = { ...selected };
-            _selected[llave] = action.value;
-            setSelected(_selected);
-        } else if (typeof action === 'string' && llave === 'search') {
-            value = action;
-            setSelected({...selected, search: value})
+            _selected[llave] = value;
+            setSelected(_selected)
         }
 
         const _query = qs.parse(window.location.search);
@@ -113,7 +110,7 @@ const Search = ({ onSearch }) => {
                             className='form-control'
                             placeholder="Buscar..."
                             onKeyUp={({ target }) => handleSearch('search', target.value)}
-                            onChange={({ target }) => setSelected({...selected, search: target.value})}
+                            onChange={({ target }) => setSelected({ ...selected, search: target.value })}
                             style={{ paddingLeft: '20px!important' }}
                             value={selected.search}
                         />
@@ -163,7 +160,7 @@ const Search = ({ onSearch }) => {
             <div className="col-12 pr-0 d-flex justify-content-end">
                 <div className="form-group p-0">
                     {filters ?
-                        <button className="btn btn-outline-danger btn-sm" onClick={e => setQuerySearch({})}>
+                        <button className="btn btn-outline-danger btn-sm" onClick={e => { setQuerySearch({}); setSelected({}); }}>
                             Limpiar
                         </button>
                         : null
