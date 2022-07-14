@@ -12,6 +12,8 @@ import { useParams } from "react-router-dom";
 const DepartamentoNuevo = () => {
     const [departamento, setDepartamento] = useState({});
     const [erase, setErase] = useState(false);
+    const [mainImage, setMainImage] = useState({});
+    const [coverImage, setCoverImage] = useState({});
     const id = useParams().id;
     const navigate = useNavigate();
 
@@ -63,7 +65,9 @@ const DepartamentoNuevo = () => {
 
     const create = async e => {
         e.preventDefault();
-        const data = form.build(e.target);
+        const inicio = mainImage.length ? mainImage[0].base64 : null;
+        const cover = coverImage.length ? coverImage[0].base64 : null;
+        const data = { ...form.build(e.target), inicio, cover };
         if (!data.departamento) {
             return message.error("El nombre del departamento es obligatorio");
         }
@@ -82,8 +86,9 @@ const DepartamentoNuevo = () => {
 
     const update = async e => {
         e.preventDefault();
-        const payload = form.build(e.target);
-        payload.id = id;
+        const inicio = mainImage.length ? mainImage[0].base64 : null;
+        const cover = coverImage.length ? coverImage[0].base64 : null;
+        const payload = { ...form.build(e.target), id, inicio, cover };
 
         try {
             const req = await request.post("departamento/update", payload)
@@ -105,12 +110,16 @@ const DepartamentoNuevo = () => {
         }
     };
 
+    const handleImages = (stuff, name) => {
+        console.log(stuff, name);
+    }
+
 
     return (
         <>
             <Header title={`${id ? 'Editar' : 'Crear nuevo'} departamento`} customHandler={setErase} btnLabel="Eliminar" btnClass="btn-sm btn-danger" />
 
-            <Main>
+            <Main className="p-3 shadow">
                 <form onSubmit={e => id ? update(e) : create(e)} className="d-flex flex-wrap">
                     <div className="col-lg-12 p-2">
                         <label htmlFor="">Nombre</label>
@@ -129,7 +138,7 @@ const DepartamentoNuevo = () => {
                                     >Eliminar</button>
                                 </div>
                             </div>
-                            : <Pond name="inicio" />
+                            : <Pond name="inicio" files={mainImage} onUpload={setMainImage} />
                         }
                     </div>
                     <div className="col-6 p-2">
@@ -145,7 +154,7 @@ const DepartamentoNuevo = () => {
                                     >Eliminar</button>
                                 </div>
                             </div>
-                            : <Pond name="cover" />
+                            : <Pond name="cover" files={coverImage} onUpload={setCoverImage} />
                         }
                     </div>
                     <div className="col-12 d-flex justify-content-end mt-3">

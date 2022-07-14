@@ -24,13 +24,13 @@ const DepartamentosListado = () => {
     return (
         <>
             <Header title="Todos mis departamentos" btnTo="/admin/departamento/nuevo" btnLabel="Crear nuevo" />
-            <Main>
+            <Main className='shadow p-3'>
                 {!departamentos.length ?
                     <h4 className="text-center">Aún no tienes departamentos <Link to="/admin/departamento/nuevo" className="text-primary"><u>Crear</u></Link> </h4>
                     : null}
 
                 <div className="d-flex flex-wrap justify-content-around">
-                    {departamentos.map((depto, d) => <Card depto={depto} key={`card-depto-${d}`} />)}
+                    {departamentos.map((depto, d) => <Card className='shadow' depto={depto} key={`card-depto-${d}`} />)}
                 </div>
             </Main>
         </>
