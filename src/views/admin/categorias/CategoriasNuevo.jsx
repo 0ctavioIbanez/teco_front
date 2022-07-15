@@ -10,7 +10,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 const CategoriasNuevo = () => {
     const [departamentos, setDepartamentos] = useState([]);
     const [categoria, setCategoria] = useState({ categoria: '', departamentos: [] });
-    const [remove, setRemove] = useState(false);
+    const [mainImage, setMainImage] = useState([]);
+    const [coverImage, setCoverImage] = useState([]);
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -64,8 +65,14 @@ const CategoriasNuevo = () => {
 
     const create = async e => {
         e.preventDefault();
-        const payload = form.build(e.target);
-        payload.departamentos = form.buildCheck(e.target.querySelector(".checks"));
+        const _mainImage = mainImage.length ? mainImage[0].base64 : null;
+        const _coverImage = coverImage.length ? coverImage[0].base64 : null;
+        const payload = {
+            ...form.build(e.target),
+            departamentos: form.buildCheck(e.target.querySelector(".checks")),
+            mainImage: _mainImage,
+            coverImage: _coverImage
+        };
 
         if (!payload.categoria) {
             return message.error("Debes agregar un nombre");
@@ -85,9 +92,12 @@ const CategoriasNuevo = () => {
         e.preventDefault();
         message.loading();
         try {
-            const req = await request.post('categoria/update', {...form.build(e.target), id});
+            const _mainImage = mainImage.length ? mainImage[0].base64 : null;
+            const _coverImage = coverImage.length ? coverImage[0].base64 : null;
+            const req = await request.post('categoria/update', { ...form.build(e.target), id, mainImage: _mainImage, coverImage: _coverImage });
             message.success(req.data.message);
         } catch (error) {
+            console.log(error);
             message.error("Lo sentimos, ocurrió un error");
         }
     }
@@ -115,7 +125,7 @@ const CategoriasNuevo = () => {
         }
 
         try {
-            const res = await request.post("categoria/deleteAll", {id, pass: pass.value});
+            const res = await request.post("categoria/deleteAll", { id, pass: pass.value });
             await message.success(res.data.message);
             navigate("/admin/categorias/todas");
         } catch (error) {
@@ -123,7 +133,7 @@ const CategoriasNuevo = () => {
         }
     };
 
-    const removeImage = async ({idImagenCover, idImagenMain}, type) => {
+    const removeImage = async ({ idImagenCover, idImagenMain }, type) => {
         const question = await message.question("¿Eliminar imágen?");
         if (question.isConfirmed) {
             const res = await request.post("categoria/removeImage", {
@@ -132,7 +142,7 @@ const CategoriasNuevo = () => {
             });
             console.log(res);
         }
-        
+
     };
 
 
@@ -154,7 +164,7 @@ const CategoriasNuevo = () => {
                                     <button type='button' className='btn btn-danger btn-sm' onClick={e => removeImage(categoria, 'main')}>Eliminar</button>
                                 </div>
                             </div>
-                            : <Pond name="mainImage" />
+                            : <Pond name="mainImage" onUpload={setMainImage} files={mainImage} />
                         }
                     </div>
                     <div className="form-group col-lg-6">
@@ -168,7 +178,7 @@ const CategoriasNuevo = () => {
                                     </button>
                                 </div>
                             </div>
-                            : <Pond name="coverImage" />
+                            : <Pond name="coverImage" onUpload={setCoverImage} files={coverImage} />
                         }
                     </div>
                     <div className="form-group col-12 d-flex flex-wrap checks">
