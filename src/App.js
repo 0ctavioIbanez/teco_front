@@ -1,4 +1,3 @@
-import './App.css';
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 
 // Admin
@@ -19,6 +18,10 @@ import DepartamentoNuevo from './views/admin/departamentos/DepartamentoNuevo';
 // Categorías
 import CategoriasListado from './views/admin/categorias/CategoriasListado';
 import CategoriasNuevo from './views/admin/categorias/CategoriasNuevo';
+
+// Public
+import MasterLayout from './views/public/layout/Layout';
+import Home from './views/public/home/Home';
 
 function App() {
   return (
@@ -53,7 +56,9 @@ function App() {
           </Route>
         </Route>
 
-        <Route path='/' element={<ProductNew />} />
+        <Route path='/' element={ <MasterLayout /> }>
+          <Route index element={ <Home />} />
+        </Route>
 
       </Routes>
     </BrowserRouter>

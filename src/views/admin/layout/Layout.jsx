@@ -1,3 +1,4 @@
+import '../../../App.css'
 import { Outlet, Link } from 'react-router-dom'
 import Nav from './Nav'
 import { useState } from 'react'

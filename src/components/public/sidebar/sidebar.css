@@ -1,0 +1,105 @@
+.sidebar__ {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 4;
+    transition: all .3s ease;
+    display: block;
+}
+
+.sidebar__--closed {
+    display: none !important;
+}
+
+.sidebar__--closed .sidebar__container {
+    animation: menu-closed .5s linear;
+}
+
+.sidebar__container {
+    width: 80%;
+    height: 100%;
+    background-color: white;
+    animation: menu-open .5s linear;
+}
+
+@keyframes menu-open {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes menu-closed {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.sidebar__nav {
+    background-color: rgb(172, 147, 159);
+    font-weight: bold;
+    color: white;
+}
+
+.sidebar__nav--account {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    background-color: rgb(153, 53, 100);
+}
+
+.sidebar__nav__item {
+    background-color: rgb(153, 53, 100);
+    padding: 10px;
+}
+
+.sidebar__nav__item button {
+    border: none;
+    background-color: transparent;
+    color: white;
+}
+
+.sidebar__nav__child {
+    height: 0px;
+    overflow: hidden;
+    transition: all .3s ease;
+    background-color: chocolate;
+}
+
+.sidebar__nav__child.active {
+    height: auto !important;
+}
+
+.sidebar__nav__child>a {
+    transition: all .3s ease;
+    padding: 10px;
+    display: block;
+    color: white;
+}
+
+.sidebar__nav__child.active>a {
+    padding-left: 25px;
+}
+
+.sidebar__porfile-pic {
+    width: 40px;
+    border-radius: 50%;
+}
+
+.chevron {
+    transition: all .3s ease;
+}
+
+.chevron-rotate {
+    transform: rotate(180deg);
+}
