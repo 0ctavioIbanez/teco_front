@@ -1,6 +1,7 @@
 import { request } from "../../../services/request"
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom";
+import Slider from "../../../components/public/slider/Slider";
 
 const Item = () => {
   const { id } = useParams();
@@ -8,8 +9,7 @@ const Item = () => {
 
   const getProducto = async () => {
     const _producto = await request.get(`producto/get/${id}`);
-    setProducto(_producto.details)
-    console.log(producto);
+    setProducto(_producto.data.details);
   }
 
   useEffect(() => {
@@ -19,7 +19,11 @@ const Item = () => {
   }, [])
 
   return (
-    <div>Item {producto.nombre}</div>
+    <section>
+      <div className="slider__item">
+        <Slider images={producto.imagenes.map(({image}) => image)} />
+      </div>
+    </section>
   )
 }
 
