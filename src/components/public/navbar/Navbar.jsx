@@ -11,19 +11,19 @@ const Navbar = ({ expanded, setExpanded }) => {
   return (
     <div className='navbar__ d-flex align-items-center'>
       <Link className={`navbar__item ${path === '/' ? 'active' : ''}`} to='/'>
-        <img src={home} alt="" />
+        <img src={home} alt="nav icon" />
         Inicio
       </Link>
       <button className={`navbar__item ${path === '/search' ? 'active' : ''}`}>
-        <img src={search} alt="" />
+        <img src={search} alt="nav icon" />
         Buscar
       </button>
       <Link className={`navbar__item ${path === '/cart' ? 'active' : ''}`} to='/'>
-        <img src={cart} alt="" />
+        <img src={cart} alt="nav icon" />
         Carrito
       </Link>
       <button className={`navbar__item`} to='/' onClick={e => setExpanded(!expanded)}>
-        <img src={menu} alt="" />
+        <img src={menu} alt="nav icon" />
         Menú
       </button>
 

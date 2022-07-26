@@ -1,6 +1,5 @@
 import Main from "../layout/Main"
 import ProductCard from "../../../components/admin/ProductCard.admin"
-import { request } from "../../../services/request"
 import { useState, useEffect } from "react"
 import { message } from "../../../assets/helpers/Message"
 import Search from "../../../components/admin/productos/search/Search"

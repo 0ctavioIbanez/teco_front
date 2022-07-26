@@ -1,3 +1,13 @@
+:root {
+  --primaryColor: #b23b6c;
+  --secondaryColor: rgba(47, 51, 58, 1);
+  --lightColor: #ebe8e9;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  color: var(--primaryColor);
+}
+
 img {
   width: 100%;
   max-height: 100%;

@@ -28,7 +28,7 @@ const MasterLayout = () => {
     <div className="public__">
       <Sidebar items={departamentos} expanded={expanded} setExpanded={setExpanded} />
       <Navbar expanded={expanded} setExpanded={setExpanded} />
-      <Outlet />
+      <Outlet context={[departamentos]} />
     </div>
   )
 }

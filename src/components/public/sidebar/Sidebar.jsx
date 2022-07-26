@@ -27,7 +27,7 @@ const Sidebar = ({ expanded, setExpanded, items }) => {
 
                 <div className="sidebar__nav sidebar__nav--account">
                     <div className="sidebar__nav__item d-flex align-items-center">
-                        <img src={profilepic} className="sidebar__porfile-pic mr-2 shadow" alt="" />
+                        <img src={profilepic} className="sidebar__porfile-pic mr-2 shadow" alt="profile pic" />
                         Mi cuenta
                     </div>
                 </div>

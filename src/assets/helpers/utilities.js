@@ -78,7 +78,20 @@ const deviceType = () => {
     return "desktop";
 };
 
+const format = {
+    number(amount) {
+        if (isNaN(amount)) {
+            return amount;
+        }
+        return new Intl.NumberFormat('es-MX', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(amount)
+    }
+};
+
 export {
     form,
-    deviceType
+    deviceType,
+    format
 }

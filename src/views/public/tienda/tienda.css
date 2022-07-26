@@ -1,0 +1,11 @@
+.filters button {
+    width: 50%;
+}
+.filters button:first-child {
+    border-top-right-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+}
+.filters button:last-child {
+    border-top-left-radius: 0!important;
+    border-bottom-left-radius: 0!important;
+}

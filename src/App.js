@@ -22,6 +22,8 @@ import CategoriasNuevo from './views/admin/categorias/CategoriasNuevo';
 // Public
 import MasterLayout from './views/public/layout/Layout';
 import Home from './views/public/home/Home';
+import Tienda from './views/public/tienda/Tienda';
+import Item from './views/public/ver/Item';
 
 function App() {
   return (
@@ -58,6 +60,8 @@ function App() {
 
         <Route path='/' element={ <MasterLayout /> }>
           <Route index element={ <Home />} />
+          <Route path='tienda' element={ <Tienda />} />
+          <Route path='ver/:id' element={ <Item />} />
         </Route>
 
       </Routes>

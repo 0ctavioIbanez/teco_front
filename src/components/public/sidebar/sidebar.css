@@ -55,11 +55,12 @@
     padding-top: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid rgb(230, 230, 230);
-    background-color: rgb(153, 53, 100);
+    /* background-color: rgb(153, 53, 100); */
+    background-color: var(--primaryColor);
 }
 
 .sidebar__nav__item {
-    background-color: rgb(153, 53, 100);
+    background-color: var(--primaryColor);
     padding: 10px;
 }
 
@@ -73,7 +74,7 @@
     height: 0px;
     overflow: hidden;
     transition: all .3s ease;
-    background-color: chocolate;
+    background-color: var(--lightColor);
 }
 
 .sidebar__nav__child.active {
@@ -84,7 +85,8 @@
     transition: all .3s ease;
     padding: 10px;
     display: block;
-    color: white;
+    /* color: white; */
+    color: var(--primaryColor);
 }
 
 .sidebar__nav__child.active>a {

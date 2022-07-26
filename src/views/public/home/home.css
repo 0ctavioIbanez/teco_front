@@ -1,7 +1,8 @@
 main {
     padding: 5px;
-    margin-bottom: 70px;
-    background-color: rgb(219, 219, 219);
+    padding-bottom: 70px;
+    background-color: var(--lightColor);
+    min-height: 100vh;
 }
 
 .home__slider {
@@ -38,6 +39,7 @@ main {
     width: 250px;
     min-width: 250px;
     margin-right: 10px;
+    color: var(--primaryColor);
 }
 .home__categorias__item:last-child {
     margin-right: 0;
@@ -84,4 +86,10 @@ main {
 /* Handle on hover */
 .overflow-x::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+.section__title {
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--primaryColor);
 }
