@@ -1,7 +1,8 @@
 :root {
-  --primaryColor: #b23b6c;
+  /* --primaryColor: rgb(178, 59, 108); */
+  --primaryColor: rgb(182, 30, 101);
   --secondaryColor: rgba(47, 51, 58, 1);
-  --lightColor: #ebe8e9;
+  --lightColor: rgb(243, 243, 243);
 }
 
 p, h1, h2, h3, h4, h5, h6 {
@@ -19,6 +20,13 @@ u:hover {
 
 .hover-pointer:hover {
   cursor: pointer;
+}
+
+.public__text-primary {
+  color: var(--primaryColor);
+}
+.public__text-secondary {
+  color: var(--secondaryColor);
 }
 
 /* Input tag */

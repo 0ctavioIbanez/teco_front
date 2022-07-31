@@ -7,7 +7,7 @@
     border-radius: 25px 25px 0 0;
     padding: 0 10px;
     z-index: 5;
-    background-color: rgba(47, 51, 58, 0.8);
+    background-color: rgba(178, 59, 109, 0.9);
     backdrop-filter: blur(14px);
     filter: brightness(.8);
 }
@@ -46,4 +46,60 @@
 .navbar__item img {
     width: 25px;
     text-align: center;
+}
+
+.topbar {
+    width: 100%;
+    height: 60px;
+    background-color: rgb(182, 30, 101);
+    backdrop-filter: blur(30px);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 7;
+}
+
+.topbar__item {
+    width: 25%;
+    height: 100%;
+}
+.topbar__logo {
+    max-height: 60px;
+    width: auto;
+}
+
+.topbar__search {
+    position: relative;
+}
+.topbar__search input {
+    border-radius: 20px;
+    outline: none!important;
+    border: none!important;
+}
+.topbar__search input:focus {
+    outline: none!important;
+    border: none!important;
+}
+.topbar__search button {
+    position: absolute;
+    right: 2px;
+    top: 3px;
+    width: 34px;
+    height: 34px;
+    background-color: var(--primaryColor);
+    border: none;
+    border-radius: 20px;
+}
+
+.topbar {
+    display: none;
+}
+
+@media only screen and (min-width: 640px) {
+    .navbar__ {
+        display: none!important;
+    }
+    .topbar {
+        display: block;
+    }
 }
