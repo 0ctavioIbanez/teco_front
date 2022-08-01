@@ -95,7 +95,7 @@
     display: none;
 }
 
-@media only screen and (min-width: 640px) {
+@media only screen and (min-width: 1000px) {
     .navbar__ {
         display: none!important;
     }

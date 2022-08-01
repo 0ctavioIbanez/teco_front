@@ -9,4 +9,9 @@
 .embla__slide {
     position: relative;
     flex: 0 0 100%;
+    flex-grow: 1;
+}
+
+.embla__slide img {
+    height: 100%;
 }
