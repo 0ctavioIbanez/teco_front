@@ -12,9 +12,9 @@ const Navbar = ({ expanded, setExpanded }) => {
     <>
       <div className="topbar">
         <div className="container d-flex justify-content-between align-items-center">
-          <div className="topbar__item">
+          <Link to="/" className="topbar__item">
             <img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/OneWeb_Logo.png" className='topbar__logo' alt="" />
-          </div>
+          </Link>
           <div className="topbar__item flex-grow-1">
             <div className="topbar__search">
               <input type="search" className='form-control' placeholder='Buscar...' />
@@ -23,7 +23,16 @@ const Navbar = ({ expanded, setExpanded }) => {
               </button>
             </div>
           </div>
-          <div className="topbar__item"></div>
+          <div className="topbar__item d-flex justify-content-end align-items-center">
+            <div className='topbar__cart mr-3'>
+              <img src={cart} alt="" />
+            </div>
+            <div className={`topbar__burger d-flex flex-column justify-content-between ${expanded ? 'active' : ''}`} onClick={e => setExpanded(!expanded)}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
         </div>
       </div>
       <div className='navbar__ d-flex align-items-center'>

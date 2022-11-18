@@ -1,0 +1,16 @@
+.tienda__filter {
+    width: 250px;
+    height: calc(100vh - 60px);
+    position: fixed;
+    top: 60px;
+}
+
+.tienda__filter > div {
+    overflow-y: scroll;
+}
+
+
+.filter__boxes input:hover,
+.filter__boxes label:hover {
+    cursor: pointer;
+}

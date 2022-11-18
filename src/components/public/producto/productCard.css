@@ -1,5 +1,6 @@
 .product__card {
     width: calc(50% - 5px);
+    max-width: 300px;
     height: 300px;
     border-radius: 10px;
     overflow: hidden;
@@ -13,6 +14,9 @@
 .product__card__slider div, img {
     height: 100%;
 }
+.product__card__slider img {
+    object-fit:fill;
+}
 .product__card__info {
     padding: 5px;
     position: relative;
@@ -20,7 +24,7 @@
 .product__card__info__title {
     font-weight: bold;
     color: var(--secondaryColor);
-    /* padding-top: 30px; */
+    font-size: 16px;
 }
 .product__card__color {
     width: 15px;
@@ -74,4 +78,23 @@
 }
 .btn__fav.fav i:first-child {
     display: none;
+}
+
+.product__card__fav {
+    width: 40px;
+}
+
+@media only screen and (min-width: 720px) {
+    .product__card {
+        height: 400px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+    .product__card__info__title {
+        font-size: 18px;
+    }
+    .product__card__price--main,
+    .card__subtitle {
+        font-size: 14px;
+    }
 }

@@ -9,7 +9,7 @@ const Home = () => {
         <main className='main'>
             <div className="home__slider public__container">
                 <Slider 
-                    images={['https://img5.goodfon.com/wallpaper/nbig/d/1e/devushka-blondinka-sidit-ulybka-figura-nozhki-kolgotki-setka.jpg', 'https://cache.desktopnexus.com/thumbseg/1881/1881227-bigthumbnail.jpg']}
+                    images={['https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg', 'https://images.unsplash.com/photo-1520276702775-5b13b5db8498?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80']}
                     config={{
                         autoplay: true
                     }}

@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import qs from 'query-string';
 import ProductCard from "../../../components/public/producto/ProductCard";
 import './tienda.css'
+import Filters from "../../../components/public/filters/Filters";
 
 const Tienda = () => {
   const [productos, setProductos] = useState([]);
@@ -31,16 +32,9 @@ const Tienda = () => {
 
 
   return (
-    <main>
-      <section className="filters d-flex justify-content-between mb-3">
-        <button className="btn btn-rounded btn-sm">
-          <i className="fas fa-sort"></i> Ordenar
-        </button>
-        <button className="btn btn-rounded btn-sm">
-          Filtros <i className="fas fa-filter"></i>
-        </button>
-      </section>
-      <section className="d-flex flex-wrap justify-content-between">
+    <main className="main__tienda">
+      <Filters />
+      <section className="d-flex flex-wrap justify-content-between main__tienda__products">
         {productos.map((producto, p) =>
           <ProductCard producto={producto} key={`product-card-${p}`} />
         )}

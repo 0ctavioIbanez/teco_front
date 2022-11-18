@@ -1,17 +1,28 @@
-.embla {
-    overflow: hidden;
+.carousel-root,
+.carousel-slider,
+.carousel-root .carousel-slider div,
+.carousel-root img,
+.carousel-root ul,
+.carousel-root li {
+    height: 100%!important;
+    border-radius: 15px;
 }
 
-.embla__container {
-    display: flex;
+
+
+.thumbs-wrapper .thumb {
+    width: 200px!important;
+    max-height: 20vh;
+}
+.thumbs-wrapper div,
+.thumbs-wrapper img {
+    width: 100%!important;
 }
 
-.embla__slide {
-    position: relative;
-    flex: 0 0 100%;
-    flex-grow: 1;
+.thumbs-wrapper .thumb {
+    border-radius: 15px;
 }
 
-.embla__slide img {
-    height: 100%;
+.thumbs-wrapper .thumb.selected {
+    border: 2px solid rgb(182, 30, 101)!important;
 }
