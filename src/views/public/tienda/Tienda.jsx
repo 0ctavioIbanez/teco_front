@@ -12,9 +12,9 @@ const Tienda = () => {
 
 
   const getProductos = async () => {
-    const _query = qs.parse(window.location.search);
-    const res = await request.post('search', _query);
-    setProductos(res.data)
+    const _query = window.location.search;
+    const res = await request.get(`store${_query}`);
+    setProductos(res.data);
   }
 
   const handleParams = () => {
@@ -35,7 +35,7 @@ const Tienda = () => {
     <main className="main__tienda">
       <Filters />
       <section className="d-flex flex-wrap justify-content-between main__tienda__products">
-        {productos.map((producto, p) =>
+        {productos?.map((producto, p) =>
           <ProductCard producto={producto} key={`product-card-${p}`} />
         )}
       </section>

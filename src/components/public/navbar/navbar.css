@@ -141,6 +141,7 @@
 .topbar__burger.active span {
     position: absolute;
 }
+
 .topbar__burger.active span:first-of-type {
     transform: rotate(-45deg) translate(-7.5px, 7.5px);
 }
@@ -161,4 +162,53 @@
 
 .topbar__cart:hover {
     cursor: pointer;
+}
+
+/* search component */
+.search-bgd {
+    position: fixed;
+    top: 60px;
+    left: 10%;
+    width: 80%;
+    min-height: 200px;
+    max-height: calc(100vh - 200px);
+    overflow-y: scroll;
+    border-radius: 0 0 15px 15px;
+}
+
+.search-result {
+    padding: 10px;
+    padding-left: 15px;
+    width: 100%;
+    display: block;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e7e7e7;
+    color: var(--primaryColor);
+    transition: all .3s ease;
+    border-left: 3px solid transparent;
+}
+
+.search-result:hover {
+    cursor: pointer;
+    font-weight: bold;
+    border-left: 3px solid var(--primaryColor);
+    color: var(--primaryColor);
+}
+
+.search-title {
+    display: block;
+    padding: 0 5px;
+    margin: 10px 0;
+}
+
+.search-not-found {
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+}
+
+.search-not-found .no-match {
+    color: rgba(47, 51, 58, 1);
+    font-size: 20px;
+    margin-bottom: 0;
 }

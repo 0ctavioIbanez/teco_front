@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 const MasterLayout = () => {
   const [expanded, setExpanded] = useState(false);
   const [departamentos, setDepartamentos] = useState([]);
+  const [productos, setProductos] = useState([]);
 
   const getCatDeptos = async () => {
     try {

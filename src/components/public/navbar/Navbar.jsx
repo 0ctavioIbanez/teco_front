@@ -1,12 +1,28 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './navbar.css';
 import home from '../../../assets/img/icons/home.svg';
 import search from '../../../assets/img/icons/search.svg';
 import cart from '../../../assets/img/icons/cart.svg';
 import menu from '../../../assets/img/icons/menu.svg';
+import Search from './Search';
+
 
 const Navbar = ({ expanded, setExpanded }) => {
+  const navigate = useNavigate();
   const path = window.location.pathname;
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearch = event => {
+    const { keyCode, target: { value } } = event;
+    setSearchText(value);
+    
+    if (keyCode === 13) {
+      setSearchText('');
+      navigate(`/tienda?search=${value}`);
+    }
+  }
+
 
   return (
     <>
@@ -17,7 +33,8 @@ const Navbar = ({ expanded, setExpanded }) => {
           </Link>
           <div className="topbar__item flex-grow-1">
             <div className="topbar__search">
-              <input type="search" className='form-control' placeholder='Buscar...' />
+              {searchText ?  <Search text={searchText} showSearch={setSearchText} /> : null}
+              <input type="search" className='form-control' onKeyUp={(e) => handleSearch(e)} placeholder='Buscar...' />
               <button>
                 <img src={search} alt="icon search" />
               </button>

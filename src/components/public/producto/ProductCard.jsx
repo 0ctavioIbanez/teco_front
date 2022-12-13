@@ -25,7 +25,7 @@ const ProductCard = ({ producto }) => {
     return (
         <div className="product__card shadow card" onClick={({ target }) => handleNavigate(target)}>
             <div className="product__card__slider">
-                <Slider images={producto.images.map(({ image }) => image)} />
+                <Slider images={producto?.images} />
             </div>
             <div className="product__card__info d-flex flex-column justify-content-between flex-grow-1">
                 <div className=''>
@@ -40,7 +40,7 @@ const ProductCard = ({ producto }) => {
                         <div className="overflow-x pr-0 flex-grow-1 p-0 pl-1">
                             <h5 className='card__subtitle mb-1'>Colores</h5>
                             <div className="d-flex">
-                                {producto.colores.map((color, c) =>
+                                {producto?.colors?.map((color, c) =>
                                     <div className="product__card__color" key={`color-${color.id}-${c}`} style={{ backgroundColor: color.hex }}></div>
                                 )}
                             </div>
